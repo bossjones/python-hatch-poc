@@ -1,3 +1,3 @@
-# REPLACE_PACKAGE_NAME
+# hatchpoc
 
-REPLACE_PACKAGE_DESCRIPTION
+Simple library for me to test out playing with hatchling
