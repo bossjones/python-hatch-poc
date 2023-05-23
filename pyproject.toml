@@ -1,4 +1,5 @@
 # examples to look at:
+# SOURCE: https://github.com/juftin/camply/blob/9eaec514c982623a8453cce692d50b1ddedba14a/pyproject.toml#L2
 # SOURCE: https://github.com/KingMichaelPark/hatch-python-cookiecutter/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/pyproject.toml
 # SOURCE: https://github.com/alvarobartt/opentrain/blob/main/pyproject.toml
 # SOURCE: https://github.com/danielfrg/mkdocs-jupyter/blob/4b5b5027daca0b3b857cb0cc025a388ae0307470/pyproject.toml#L42
@@ -111,7 +112,7 @@ dev = [
   "pre-commit",
   "debugpy",
   "pdbpp",
-  "invoke",
+  "invoke==2.0.0",
   "bpython",
   "codecov"
 ]

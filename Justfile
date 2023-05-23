@@ -18,46 +18,37 @@ pip-tools:
 
 # run pip-compile to generate requirements.txt
 pip-compile: pip-tools
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements.txt pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-dev.txt --extra dev pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-test.txt --extra tests pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-doc.txt --extra docs pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-experimental.txt --extra experimental pyproject.toml
+	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements.txt requirements.in
+# pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-dev.txt --extra dev pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-test.txt --extra tests pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-doc.txt --extra docs pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements-experimental.txt --extra experimental pyproject.toml
 
 # run pip-complie to generate requirements.txt and force rebuild
 pip-compile-rebuild: pip-tools
 	# rm -v requirements*.txt || true
 	> requirements.txt
-	> requirements-dev.txt
-	> requirements-test.txt
-	> requirements-doc.txt
-	> requirements-experimental.txt
-	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements.txt pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-dev.txt --extra dev pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-test.txt --extra tests pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-doc.txt --extra docs pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-experimental.txt --extra experimental pyproject.toml
+# > requirements-dev.txt
+# > requirements-test.txt
+# > requirements-doc.txt
+# > requirements-experimental.txt
+	pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements.txt requirements.in
+# pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-dev.txt --extra dev pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-test.txt --extra tests pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-doc.txt --extra docs pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --rebuild --output-file requirements-experimental.txt --extra experimental pyproject.toml
 
-# run pip-compile and upgrade downloaders
-pip-compile-upgrade-downloaders:
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade-package gallery-dl --output-file requirements.txt pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade-package yt-dlp --output-file requirements.txt pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade-package youtube_dl --output-file requirements.txt pyproject.toml
-
-# run pip-compile and upgrade yt-dlp and gallery-dl
-pip-compile-upgrade-yt-dlp-gallery-dl: pip-tools
-	pip-compile -v --pip-args "-v" --resolver=backtracking --output-file requirements.txt pyproject.toml --upgrade yt-dlp  --upgrade gallery-dl
 
 # upgrade pip-tools
 pip-tools-upgrade:
 	pip install --upgrade pip setuptools==66.1.1 wheel
 	pip install pip-tools==6.12.1 pipdeptree --upgrade
 	# rm -v requirements*.txt || true
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements.txt pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-dev.txt --extra dev pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-test.txt --extra tests pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-doc.txt --extra docs pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-experimental.txt --extra experimental pyproject.toml
+	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements.txt requirements.in
+# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-dev.txt --extra dev pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-test.txt --extra tests pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-doc.txt --extra docs pyproject.toml
+# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --output-file  requirements-experimental.txt --extra experimental pyproject.toml
 
 install-opencv-typing:
 	./contrib/install_opencv_typing.sh
@@ -67,16 +58,17 @@ editable-install:
 
 install-deps-all:
 	pip install -r requirements.txt
-	pip install -r requirements-dev.txt
-	pip install -r requirements-test.txt
-	pip install -r requirements-doc.txt
-	pip install -r requirements-experimental.txt
+	# pip install -r requirements-dev.txt
+	# pip install -r requirements-test.txt
+	# pip install -r requirements-doc.txt
+	# pip install -r requirements-experimental.txt
 
 install-editable:
 	pip install -e .
 
 pip-sync: pip-compile install-deps-all install-editable
-	pip-sync requirements.txt requirements-dev.txt requirements-doc.txt requirements-experimental.txt requirements-test.txt
+	# pip-sync requirements.txt requirements-dev.txt requirements-doc.txt requirements-experimental.txt requirements-test.txt
+	pip-sync requirements.txt
 
 dev: pip-compile install-deps-all editable-install install-opencv-typing
 
@@ -98,20 +90,17 @@ pre-flight:
 	git stash
 	git pull --rebase
 	git stash pop
-	echo -e "\n Environment ready, please run hatchpocctlctl run"
+	echo -e "\n Environment ready, please run hatchpocctl run"
 
 rerun-latest:
-	git stash; git pull --rebase; git stash pop; hatchpocctlctl run
+	git stash; git pull --rebase; git stash pop; hatchpocctl run
 
-mongodb-setup:
-	docker volume create hatchpocctlmongodata || true
-	docker volume ls
 
 lock:
-	pip-compile -v --pip-args "-v" --resolver=backtracking -o ./requirements.txt ./pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra dev -o ./requirements-dev.txt ./pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra test -o ./requirements-test.txt ./pyproject.toml
-	pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra doc -o ./requirements-doc.txt ./pyproject.toml
+	pip-compile -v --pip-args "-v" --resolver=backtracking -o ./requirements.txt ./requirements.in
+	# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra dev -o ./requirements-dev.txt ./pyproject.toml
+	# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra test -o ./requirements-test.txt ./pyproject.toml
+	# pip-compile -v --pip-args "-v" --resolver=backtracking --upgrade --extra doc -o ./requirements-doc.txt ./pyproject.toml
 
 # verify python is running under pyenv
 which-python:
