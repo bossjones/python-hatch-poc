@@ -108,7 +108,8 @@ security= [
   "pip-licenses"
 ]
 build = [
-  "build"
+  "build",
+  "hatchpoc"
 ]
 dev = [
   "hatchpoc[tests,quality,docs,types,security,build]",
@@ -193,24 +194,23 @@ include = [
 
 [tool.hatch.build.targets.sdist]
 # packages = ["src/hatchpoc"]
-exclude = [
-  "/.github",
-  "/.vscode",
-  "/docs",
-  "/.devcontainer",
-  "/.pre-commit-config.yaml",
-  "/.gitignore",
-  "/tests",
-  "/Dockerfile",
-  "/.dockerignore",
-]
-include = [
-  "/src",
-  # "/src/hatchpoc",
-  "/tests",
-  "/README.md",
-  "/requirements.txt",
-]
+# exclude = [
+#   "/.github",
+#   "/.vscode",
+#   "/docs",
+#   "/.devcontainer",
+#   "/.pre-commit-config.yaml",
+#   "/.gitignore",
+#   "/tests",
+#   "/Dockerfile",
+#   "/.dockerignore",
+# ]
+# include = [
+#   "/src",
+#   # "/src/hatchpoc",
+#   "/README.md",
+#   "/requirements.txt",
+# ]
 
 [tool.coverage.run]
 branch = true

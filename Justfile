@@ -226,3 +226,7 @@ gen-autocomplete: ## generate hatch	autocomplete
 
 hatch-dev: pip-compile ## install hatch	environment
 	pip	install	--upgrade --requirement=requirements.txt --editable='.[dev]'
+
+ci: # try building
+    pip install '.[build]'
+    python -m build
