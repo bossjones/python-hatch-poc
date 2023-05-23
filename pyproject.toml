@@ -1,4 +1,5 @@
 # examples to look at:
+# SOURCE: https://github.com/maresb/hatch-vcs-footgun-example
 # SOURCE: https://github.com/juftin/camply/blob/9eaec514c982623a8453cce692d50b1ddedba14a/pyproject.toml#L2
 # SOURCE: https://github.com/KingMichaelPark/hatch-python-cookiecutter/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/pyproject.toml
 # SOURCE: https://github.com/alvarobartt/opentrain/blob/main/pyproject.toml
@@ -37,10 +38,16 @@ Issues = "https://github.com/bossjones/hatchpoc/issues"
 Source = "https://github.com/bossjones/hatchpoc"
 
 # SOURCE: https://github.com/fredrikaverpil/hatch-playground/blob/main/pyproject.toml
-# [tool.hatch.version]
-# path = "src/hatchpoc/__init__.py"
 [tool.hatch.version]
-source = "vcs"
+path = "src/hatchpoc/__init__.py"
+
+# [tool.hatch.version]
+# source = "vcs"
+
+# [tool.hatch.build.hooks.vcs]
+# version-file = "_version.py"
+
+
 
 [tool.hatch.metadata.hooks.requirements_txt]
 filename = "requirements.txt"
