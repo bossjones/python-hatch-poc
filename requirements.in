@@ -1,0 +1,15 @@
+loguru
+tqdm
+requests
+pydantic[email]
+pygments
+rich
+logging_tree
+better_exceptions
+uritools
+uritemplate
+tenacity
+click-spinner
+prettytable
+tomli==1.2.2
+tomli-w

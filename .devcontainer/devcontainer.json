@@ -11,6 +11,7 @@
 				"bungcip.better-toml",
 				"ms-azuretools.vscode-docker",
 				"zhuangtongfa.material-theme",
+				"charliermarsh.ruff",
 				"redhat.vscode-yaml",
 				"GitHub.copilot"
 			]
@@ -23,6 +24,7 @@
 				"bungcip.better-toml",
 				"ms-azuretools.vscode-docker",
 				"zhuangtongfa.material-theme",
+				"charliermarsh.ruff",
 				"redhat.vscode-yaml",
 				"GitHub.copilot"
 			]

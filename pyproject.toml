@@ -1,6 +1,8 @@
+# examples to look at:
+# SOURCE: https://github.com/KingMichaelPark/hatch-python-cookiecutter/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/pyproject.toml
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling"]
+requires = ["hatchling", "pip-tools==6.12.1", "setuptools==66.1.1", "wheel"]
 
 [project]
 authors = [{name = "Malcolm Jones"}]
