@@ -46,9 +46,6 @@ source = "vcs"
 filename = "requirements.txt"
 
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/hatchpoc"]
-
 # [tool.hatch.metadata]
 # allow-direct-references = true
 
@@ -176,6 +173,16 @@ serve = [
   "mkdocs serve",
 ]
 
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hatchpoc"]
+include = [
+  "/src/hatchpoc",
+  "/tests",
+  "/README.md",
+  "/requirements.txt",
+]
+
 [tool.hatch.build.targets.sdist]
 packages = ["src/hatchpoc"]
 exclude = [
@@ -188,6 +195,12 @@ exclude = [
   "/tests",
   "/Dockerfile",
   "/.dockerignore",
+]
+include = [
+  "/src/hatchpoc",
+  "/tests",
+  "/README.md",
+  "/requirements.txt",
 ]
 
 [tool.coverage.run]
