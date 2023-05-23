@@ -1,12 +1,12 @@
-site_name: REPLACE_PACKAGE_NAME
-site_url: https://github.com/REPLACE_GITHUB_USERNAME/REPLACE_PACKAGE_NAME
-site_author: REPLACE_FULL_NAME
-site_description: REPLACE_PACKAGE_DESCRIPTION
+site_name: hatchpoc
+site_url: https://github.com/bossjones/hatchpoc
+site_author: Malcolm Jones
+site_description: Simple library for me to test out playing with hatchling
 
-repo_name: REPLACE_GITHUB_USERNAME/REPLACE_PACKAGE_NAME
-repo_url: https://github.com/REPLACE_GITHUB_USERNAME/REPLACE_PACKAGE_NAME
+repo_name: bossjones/hatchpoc
+repo_url: https://github.com/bossjones/hatchpoc
 
-copyright: Copyright (c) 2023-present REPLACE_FULL_NAME <REPLACE_EMAIL>
+copyright: Copyright (c) 2023-present Malcolm Jones <bossjones@theblacktonystark.com>
 
 theme:
   name: material
@@ -38,9 +38,9 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/REPLACE_PACKAGE_NAME/
+      link: https://pypi.org/project/hatchpoc/
     - icon: fontawesome/brands/github
-      link: https://github.com/REPLACE_GITHUB_USERNAME
+      link: https://github.com/bossjones
     # - icon: fontawesome/brands/twitter
     #   link: https://twitter.com/REPLACE_TWITTER_USERNAME
     # - icon: fontawesome/brands/linkedin

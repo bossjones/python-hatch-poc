@@ -13,8 +13,8 @@
 
 ## 🚚 Replacements
 
-* `REPLACE_PACKAGE_NAME`: name of the package (usually the same name as the repository in which it's hosted).
+* `hatchpoc`: name of the package (usually the same name as the repository in which it's hosted).
 * `REPLACE_PACKAGE_DESCRIPTION`: description of the package.
-* `REPLACE_FULL_NAME`: user's full name.
-* `REPLACE_EMAIL`: user's email.
-* `REPLACE_GITHUB_USERNAME`: GitHub username of the package owner.
+* `Malcolm Jones`: user's full name.
+* `bossjones@theblacktonystark.com`: user's email.
+* `bossjones`: GitHub username of the package owner.
