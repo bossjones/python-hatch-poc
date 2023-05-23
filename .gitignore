@@ -118,3 +118,4 @@ venv.bak/
 # .DS_Store
 .DS_Store
 .envrc
+file.out

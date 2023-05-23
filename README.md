@@ -114,6 +114,44 @@ being index.
 hatch publish
 ```
 
+### Pip-tools
+
+When you run the `remove-poetry` with the `-c` option which create a virtual environment for you, you will also get [`pip-tools`](https://github.com/jazzband/pip-tools) and [`hatch`](https://github.com/pypa/hatch) installed.
+Pip-tools is a set of tools to help you manage your dependencies. As the name suggests, it is based on pip.
+The most basic workflow will look something like this:
+
+Add a new package in your `pyproject.toml` (or `requirements.ini` if you prefer) file and run `pip-compile` to generate a new `requirements.txt` file.
+```shell
+pip-tools compile -o requirements.txt pyproject.toml --resolver=backtracking
+```
+The command also take an `--extra` option to specify dependencies groups, more infos on their [github readme](https://github.com/jazzband/pip-tools).
+
+```shell
+pip-sync
+```
+`pip-sync` will synchronize your virtual environment with the `requirements.txt` file, this means that any package in the virtual
+environment that is not in the `requirements.txt` file will be removed. You can also just use a good old `python -m pip install -r requirements.txt`
+to install the dependencies.
+
+### Hatch
+
+Installed at the same time as  `pip-tools`, [Hatch](https://hatch.pypa.io/latest/) is the build system specified in the `pyproject.toml` file. Since you are probably
+not going to package and publish your django project you don't really need it, but `pip-tools` does need a build system defined
+to work.
+
+!!! Quote "Official hatch documentation"
+    Hatch is a modern, extensible Python project manager.
+
+Hatch does everything you need to manage a python project, dependencies, virtual environments, packaging, publishing, scripts, etc and it also uses
+the `pyproject.toml` file. The one available after the `remove-poetry` command is a good base to start using hatch.
+
+Just run
+```shell
+hatch env create
+```
+
+Read the [hatch documentation](https://hatch.pypa.io/latest/) for more infos.
+
 ## License
 
 hatcpoc is distributed under the terms of the

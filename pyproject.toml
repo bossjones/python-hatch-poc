@@ -1,8 +1,12 @@
 # examples to look at:
 # SOURCE: https://github.com/KingMichaelPark/hatch-python-cookiecutter/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/pyproject.toml
+# SOURCE: https://github.com/alvarobartt/opentrain/blob/main/pyproject.toml
+# SOURCE: https://github.com/danielfrg/mkdocs-jupyter/blob/4b5b5027daca0b3b857cb0cc025a388ae0307470/pyproject.toml#L42
+# https://github.com/fredrikaverpil/hatch-playground
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling", "pip-tools==6.12.1", "setuptools==66.1.1", "wheel"]
+# requires = ["hatchling", "pip-tools==6.12.1", "setuptools==66.1.1", "wheel"]
+requires = ["hatchling", "hatch-vcs", "hatch-requirements-txt"]
 
 [project]
 authors = [{name = "Malcolm Jones"}]
@@ -18,7 +22,7 @@ classifiers = [
 ]
 dependencies = []
 description = "Simple library for me to test out playing with hatchling"
-dynamic = ["version"]
+dynamic = ["version", "dependencies"]
 keywords = []
 license = "MIT"
 name = "hatchpoc"
@@ -30,8 +34,21 @@ Documentation = "https://bossjones.github.io/hatchpoc"
 Issues = "https://github.com/bossjones/hatchpoc/issues"
 Source = "https://github.com/bossjones/hatchpoc"
 
+# SOURCE: https://github.com/fredrikaverpil/hatch-playground/blob/main/pyproject.toml
+# [tool.hatch.version]
+# path = "src/hatchpoc/__init__.py"
 [tool.hatch.version]
-path = "src/hatchpoc/__init__.py"
+source = "vcs"
+
+[tool.hatch.metadata.hooks.requirements_txt]
+filename = "requirements.txt"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hatchpoc"]
+
+# [tool.hatch.metadata]
+# allow-direct-references = true
 
 [project.optional-dependencies]
 docs = [
@@ -44,9 +61,59 @@ quality = [
   "black~=22.10.0",
   "ruff~=0.0.263",
   "pre-commit~=2.20.0",
+  "flake8",
+  "isort",
+  "ruff",
+  "autopep8",
+  "autoflake",
+  "pylint",
+  "pycodestyle",
+  "sourcery",
+  "validate-pyproject[all]"
 ]
 tests = [
   "pytest~=7.1.2",
+  "pytest-cov",
+  "pytest-mock",
+  "pytest-dotenv",
+  "pytest-freezegun",
+  "responses",
+  "factory-boy",
+  "pytest-sugar"
+]
+types = [
+  "mypy",
+  "types-freezegun",
+  "types-python-dateutil",
+  "types-freezegun",
+  "types-six",
+  "types-pytz",
+  "types-PyYAML",
+  "types-click",
+  "types-colorama",
+  "types-dataclasses",
+  "types-requests",
+  "types-setuptools",
+  "types-mock",
+]
+security= [
+  "pip-audit",
+  "pip-licenses"
+]
+build = [
+  "build"
+]
+dev = [
+  "hatchpoc[tests,quality,docs,types,security,build]",
+  "pip-tools==6.12.1",
+  "setuptools==66.1.1",
+  "wheel",
+  "pre-commit",
+  "debugpy",
+  "pdbpp",
+  "invoke",
+  "bpython",
+  "codecov"
 ]
 
 [tool.hatch.envs.quality]
@@ -108,6 +175,7 @@ serve = [
 ]
 
 [tool.hatch.build.targets.sdist]
+packages = ["src/hatchpoc"]
 exclude = [
   "/.github",
   "/.vscode",
@@ -118,4 +186,15 @@ exclude = [
   "/tests",
   "/Dockerfile",
   "/.dockerignore",
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
 ]
