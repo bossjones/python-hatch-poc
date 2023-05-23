@@ -224,5 +224,5 @@ gen-autocomplete: ## generate hatch	autocomplete
 	_HATCH_COMPLETE=zsh_source hatch > ./contrib/_hatch
 	just --completions zsh > ./contrib/_just
 
-hatch-dev: ## install hatch	environment
+hatch-dev: pip-compile ## install hatch	environment
 	pip	install	--upgrade --requirement=requirements.txt --editable='.[dev]'
