@@ -9,7 +9,8 @@
 [build-system]
 build-backend = "hatchling.build"
 # requires = ["hatchling", "pip-tools==6.13.0", "setuptools==66.1.1", "wheel"]
-requires = ["hatchling", "hatch-vcs", "hatch-requirements-txt"]
+# requires = ["hatchling", "hatch-vcs", "hatch-requirements-txt"]
+requires = ["hatchling", "hatch-requirements-txt"]
 
 [project]
 authors = [{name = "Malcolm Jones"}]
@@ -191,7 +192,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.sdist]
-packages = ["src/hatchpoc"]
+# packages = ["src/hatchpoc"]
 exclude = [
   "/.github",
   "/.vscode",
@@ -204,7 +205,8 @@ exclude = [
   "/.dockerignore",
 ]
 include = [
-  "/src/hatchpoc",
+  "/src",
+  # "/src/hatchpoc",
   "/tests",
   "/README.md",
   "/requirements.txt",
