@@ -232,3 +232,31 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+# [tool.mypy]
+# python_version = "3.9"
+# namespace_packages = true
+# check_untyped_defs = true
+# warn_unused_ignores = true
+# no_implicit_optional = true
+# show_error_codes = true
+
+[tool.mypy]
+allow_subclassing_any = true
+allow_untyped_calls = true
+allow_untyped_decorators = true
+exclude = ["./contrib/"]
+ignore_missing_imports = true
+implicit_reexport = true
+namespace_packages = true
+pretty = true
+show_error_codes = true
+strict = true
+warn_return_any = false
+warn_unused_ignores = false
+
+    # Remove this and add `types-redis`
+    # when the issue https://github.com/python/typeshed/issues/8242 is resolved.
+    [[tool.mypy.overrides]]
+    ignore_missing_imports = true
+    module = ['redis.asyncio']
