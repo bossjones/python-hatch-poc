@@ -141,6 +141,7 @@ format = [
 ]
 
 [tool.ruff]
+src = ["src", "tests"]
 ignore = [
   "E501", # line too long, handled by black
   "B008", # do not perform function calls in argument defaults
@@ -153,6 +154,15 @@ select = [
   "I", # isort
   "C", # flake8-comprehensions
   "B", # flake8-bugbear
+]
+
+[tool.ruff.per-file-ignores]
+"*/__init__.py" = [
+  "D"  # pydocstyle
+  ]
+"tests/*" = [
+    "S101",  # assert used
+    "S105"  # hardcoded password
 ]
 
 [tool.ruff.isort]

@@ -6,35 +6,35 @@ on:
   pull_request:
   push:
     branches:
-      - main
+    - main
 
 jobs:
   commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: webiny/action-conventional-commits@v1.1.0
+    - uses: actions/checkout@v3
+    - uses: webiny/action-conventional-commits@v1.1.0
 
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - uses: syphar/restore-virtualenv@v1
-      - run: pip install --requirement=requirements.txt '.[lint]'
-      - run: |
-          ruff src tests
-          black --check --diff src tests
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - uses: syphar/restore-virtualenv@v1
+    - run: pip install --requirement=requirements.txt '.[quality]'
+    - run: |
+        ruff src tests
+        black --check --diff src tests
 
   types:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - uses: syphar/restore-virtualenv@v1
-      - run: pip install --requirement=requirements.txt '.[types]'
-      - run: mypy src tests
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - uses: syphar/restore-virtualenv@v1
+    - run: pip install --requirement=requirements.txt '.[types]'
+    - run: mypy --ignore-missing-imports src tests
