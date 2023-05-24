@@ -7,6 +7,6 @@ OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]
 
 
 JsonType: TypeAlias = (
-	None | bool | int | float | str | list["JsonType"] | dict[str, "JsonType"]
+    None | bool | int | float | str | list["JsonType"] | dict[str, "JsonType"]
 )
 JsonDict: TypeAlias = dict[str, "JsonType"]

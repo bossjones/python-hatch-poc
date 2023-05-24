@@ -11,6 +11,23 @@ jobs:
   # use cibuildwheel if project is not pure-python: https://github.com/pypa/cibuildwheel
   dist:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      # actions: read|write|none
+      # checks: read|write|none
+      contents: write
+      # deployments: read|write|none
+      # id-token: read|write|none
+      # issues: read|write|none
+      # discussions: read|write|none
+      packages: write
+      # pages: read|write|none
+      # pull-requests: read|write|none
+      # repository-projects: read|write|none
+      # security-events: read|write|none
+      # statuses: read|write|none
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
