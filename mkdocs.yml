@@ -22,8 +22,19 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  plugins:
+  - search
+  - awesome-pages
+  - include-markdown
 
 markdown_extensions:
+  - codehilite
+  - admonition
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.magiclink
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences
@@ -34,6 +45,7 @@ plugins:
       type: timeago
       enable_creation_date: true
   - mkdocstrings:
+
 
 extra:
   social:
