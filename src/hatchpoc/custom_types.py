@@ -1,4 +1,8 @@
+"""custom_types"""
 # SOURCE: https://github.com/fredrikaverpil/fredrikaverpil.github.io/blob/d9418028a32cc55994cc3d2e830b6f9cc450c025/mkdocs/cheat-sheets/python.md
+
+from __future__ import annotations
+
 from types import TracebackType
 from typing import TypeAlias, Union
 
