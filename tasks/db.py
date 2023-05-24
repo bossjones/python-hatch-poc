@@ -1,24 +1,24 @@
 """
 db tasks
 """
-import logging
-from invoke import task, call
-from invoke.exceptions import Failure
-import os
 import glob
+import logging
+import os
 import sys
 import traceback
-
 from urllib.parse import urlparse
 
 # from sqlalchemy.engine.url import make_url
 import click
+from invoke import call, task
+from invoke.exceptions import Failure
+
 from tasks.utils import get_compose_env
 
 from .utils import (
+    COLOR_CAUTION,
     COLOR_DANGER,
     COLOR_SUCCESS,
-    COLOR_CAUTION,
 )
 
 # from tasks.core import clean, execute_sql
@@ -88,7 +88,9 @@ def detect_os(ctx, loc="local", verbose=0):
 
     if ctx.config["run"]["env"]["DETECTED_OS"] == "Darwin":
         ctx.config["run"]["env"]["ARCHFLAGS"] = "-arch x86_64"
-        ctx.config["run"]["env"]["PKG_CONFIG_PATH"] = "/usr/local/opt/libffi/lib/pkgconfig"
+        ctx.config["run"]["env"][
+            "PKG_CONFIG_PATH"
+        ] = "/usr/local/opt/libffi/lib/pkgconfig"
         ctx.config["run"]["env"]["LDFLAGS"] = "-L/usr/local/opt/openssl/lib"
         ctx.config["run"]["env"]["CFLAGS"] = "-I/usr/local/opt/openssl/include"
 
@@ -118,7 +120,10 @@ def autogen(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment=""):
             click.secho(msg, fg=COLOR_SUCCESS)
 
         # TODO: 2/10/2020 # Add code to remove both the .db file and the files inside of hatchpoc/migrations/*.py
-        if ctx.config["run"]["env"]["TESTING"] and ctx.config["run"]["env"]["TEST_DATABASE_URL"]:
+        if (
+            ctx.config["run"]["env"]["TESTING"]
+            and ctx.config["run"]["env"]["TEST_DATABASE_URL"]
+        ):
             DATABASE_URL = ctx.config["run"]["env"]["TEST_DATABASE_URL"]
         else:
             DATABASE_URL = ctx.config["run"]["env"]["DATABASE_URL"]
@@ -135,7 +140,9 @@ def autogen(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment=""):
             if not dry_run:
                 ctx.run("rm -fv {dbfile}".format(dbfile=dbfile))
             else:
-                _msg = "[autogen] (dry-run) would run rm -fv {dbfile}".format(dbfile=dbfile)
+                _msg = "[autogen] (dry-run) would run rm -fv {dbfile}".format(
+                    dbfile=dbfile
+                )
                 click.secho(_msg, fg=COLOR_CAUTION)
 
         # open alembic.ini and get path to migration
@@ -172,9 +179,13 @@ grep "," hatchpoc/api/crud/__init__.py | grep -v "^#" | tr ',' '\n' | xargs
 """
         res = ctx.run(_crud_models_cmd)
         # _cmd = "alembic revision --autogenerate -m 'Initial: {comment}'".format(comment=comment)
-        _cmd = r"alembic revision --autogenerate -m 'Initial: {comment}'".format(comment=res.stdout.rstrip())
+        _cmd = r"alembic revision --autogenerate -m 'Initial: {comment}'".format(
+            comment=res.stdout.rstrip()
+        )
     else:
-        _cmd = "alembic revision --autogenerate -m 'Initial: {comment}'".format(comment=comment)
+        _cmd = "alembic revision --autogenerate -m 'Initial: {comment}'".format(
+            comment=comment
+        )
 
     if verbose >= 1:
         msg = f"{_cmd}"
@@ -188,7 +199,9 @@ grep "," hatchpoc/api/crud/__init__.py | grep -v "^#" | tr ',' '\n' | xargs
 
 
 @task(pre=[call(detect_os, loc="local")], incrementable=["verbose"])
-def alembic(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment="", run=None):
+def alembic(
+    ctx, loc="local", verbose=0, clean=False, dry_run=True, comment="", run=None
+):
     """
     Invoke alembic commands <OPTIONS> [upgrade, autogenerate, show, history, status, downgrade]
 
@@ -235,7 +248,10 @@ def alembic(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment="", 
             msg = "[alembic] removing existing db first along with items in migration folder"
             click.secho(msg, fg=COLOR_SUCCESS)
 
-        if ctx.config["run"]["env"]["TESTING"] and ctx.config["run"]["env"]["TEST_DATABASE_URL"]:
+        if (
+            ctx.config["run"]["env"]["TESTING"]
+            and ctx.config["run"]["env"]["TEST_DATABASE_URL"]
+        ):
             DATABASE_URL = ctx.config["run"]["env"]["TEST_DATABASE_URL"]
         else:
             DATABASE_URL = ctx.config["run"]["env"]["DATABASE_URL"]
@@ -252,7 +268,9 @@ def alembic(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment="", 
             if not dry_run:
                 ctx.run("rm -fv {dbfile}".format(dbfile=dbfile))
             else:
-                _msg = "[alembic] (dry-run) would run rm -fv {dbfile}".format(dbfile=dbfile)
+                _msg = "[alembic] (dry-run) would run rm -fv {dbfile}".format(
+                    dbfile=dbfile
+                )
                 click.secho(_msg, fg=COLOR_CAUTION)
 
         # open alembic.ini and get path to migration
@@ -288,7 +306,9 @@ def alembic(ctx, loc="local", verbose=0, clean=False, dry_run=True, comment="", 
             _crud_models_cmd = r"""grep "," hatchpoc/api/crud/__init__.py | grep -v "^#" | tr ',' '\n' | xargs
 """
             res = ctx.run(_crud_models_cmd)
-            _cmd = r"alembic revision --autogenerate -m 'Initial: {comment}'".format(comment=res.stdout.rstrip())
+            _cmd = r"alembic revision --autogenerate -m 'Initial: {comment}'".format(
+                comment=res.stdout.rstrip()
+            )
         elif run == "show":
             _cmd = "alembic show"
         elif run == "history":

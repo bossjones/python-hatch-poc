@@ -2,21 +2,22 @@
 local tasks
 """
 import logging
-from invoke import task, call
-from invoke.exceptions import Exit
 import pathlib
 
 # from sqlalchemy.engine.url import make_url
 import click
-from tasks.utils import get_compose_env
+import rich
+from invoke import call, task
+from invoke.exceptions import Exit
 
 # from hatchpoc.utils import iops
 from tasks import iops
+from tasks.utils import get_compose_env
+
 from .utils import (
-    COLOR_SUCCESS,
     COLOR_CAUTION,
+    COLOR_SUCCESS,
 )
-import rich
 
 logger = logging.getLogger(__name__)
 logger.setLevel("DEBUG")
@@ -99,7 +100,9 @@ def detect_os(ctx, loc="local", verbose=0):
 
     if ctx.config["run"]["env"]["DETECTED_OS"] == "Darwin":
         ctx.config["run"]["env"]["ARCHFLAGS"] = "-arch x86_64"
-        ctx.config["run"]["env"]["PKG_CONFIG_PATH"] = "/usr/local/opt/libffi/lib/pkgconfig"
+        ctx.config["run"]["env"][
+            "PKG_CONFIG_PATH"
+        ] = "/usr/local/opt/libffi/lib/pkgconfig"
         ctx.config["run"]["env"]["LDFLAGS"] = "-L/usr/local/opt/openssl/lib"
         ctx.config["run"]["env"]["CFLAGS"] = "-I/usr/local/opt/openssl/include"
 
@@ -201,7 +204,9 @@ def detect_os(ctx, loc="local", verbose=0):
 #     ctx.run("uvicorn app.main:app --reload")
 
 
-@task(pre=[call(detect_os, loc="local")], incrementable=["verbose"], aliases=["install"])
+@task(
+    pre=[call(detect_os, loc="local")], incrementable=["verbose"], aliases=["install"]
+)
 def bootstrap(ctx, loc="local", verbose=0, cleanup=False, upgrade=False):
     """
     start up fastapi application
@@ -285,7 +290,9 @@ pip freeze > freeze.before.txt
     ctx.run(_cmd)
 
     if diff:
-        res = ctx.run("diff -y --suppress-common-lines freeze.before.txt freeze.after.txt")
+        res = ctx.run(
+            "diff -y --suppress-common-lines freeze.before.txt freeze.after.txt"
+        )
         msg = "[freeze] diff between two freeze files: "
         click.secho(msg, fg=COLOR_SUCCESS)
         print(res.stdout)
@@ -423,7 +430,9 @@ def pip_tools(
             ctx.run(_upgrade_cmd)
 
 
-@task(pre=[call(detect_os, loc="local")], incrementable=["verbose"], aliases=["hacking"])
+@task(
+    pre=[call(detect_os, loc="local")], incrementable=["verbose"], aliases=["hacking"]
+)
 def contrib(ctx, loc="local", verbose=0, cleanup=False):
     """
     Install contrib files in correct places
@@ -550,7 +559,9 @@ def clean_name(txt: str) -> str:
 
 
 @task(pre=[call(detect_os, loc="local")], incrementable=["verbose"])
-def clean_dir_names(ctx, loc="local", verbose=0, cleanup=False, filename="", overwrite=False):
+def clean_dir_names(
+    ctx, loc="local", verbose=0, cleanup=False, filename="", overwrite=False
+):
     """
     clean compiled python artifacts
     Usage: inv local.clean
@@ -766,9 +777,7 @@ pip install -e .
     msg = "[jupyter] start up notebook"
     click.secho(msg, fg=COLOR_SUCCESS)
 
-    msg = (
-        "[jupyter] Great guide to jupyter here: https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook"
-    )
+    msg = "[jupyter] Great guide to jupyter here: https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook"
     click.secho(msg, fg=COLOR_SUCCESS)
 
     ctx.run("jupyter notebook")

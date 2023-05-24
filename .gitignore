@@ -119,3 +119,12 @@ venv.bak/
 .DS_Store
 .envrc
 file.out
+
+
+
+cov.xml
+cov_annotate
+monkeytype.sqlite3
+stubs
+*.pth
+*.zip

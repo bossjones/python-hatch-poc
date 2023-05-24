@@ -80,7 +80,7 @@ rm -f cov.xml
 @task
 def pylint(ctx, loc="local", tests=False, everything=False, specific=""):
     """
-    pylint hatchpoc folder
+    pylint src folder
     Usage: inv ci.pylint
     """
     env = get_compose_env(ctx, loc=loc)
@@ -97,21 +97,23 @@ def pylint(ctx, loc="local", tests=False, everything=False, specific=""):
             "pylint --output-format=colorized --disable=all --enable=F,E --rcfile ./lint-configs-python/python/pylintrc tests"
         )
     elif everything:
-        ctx.run("pylint --output-format=colorized --rcfile ./lint-configs-python/python/pylintrc tests hatchpoc")
+        ctx.run(
+            "pylint --output-format=colorized --rcfile ./lint-configs-python/python/pylintrc tests src"
+        )
     elif specific:
         ctx.run(
-            f"pylint --output-format=colorized --disable=all --enable={specific} --rcfile ./lint-configs-python/python/pylintrc tests hatchpoc"
+            f"pylint --output-format=colorized --disable=all --enable={specific} --rcfile ./lint-configs-python/python/pylintrc tests src"
         )
     else:
         ctx.run(
-            "pylint --output-format=colorized --disable=all --enable=F,E --rcfile ./lint-configs-python/python/pylintrc hatchpoc"
+            "pylint --output-format=colorized --disable=all --enable=F,E --rcfile ./lint-configs-python/python/pylintrc src"
         )
 
 
 @task(incrementable=["verbose"])
 def mypy(ctx, loc="local", verbose=0):
     """
-    mypy hatchpoc folder
+    mypy src folder
     Usage: inv ci.mypy
     """
     env = get_compose_env(ctx, loc=loc)
@@ -123,8 +125,9 @@ def mypy(ctx, loc="local", verbose=0):
     for k, v in env.items():
         ctx.config["run"]["env"][k] = v
 
-    # ctx.run("mypy --config-file ./lint-configs-python/python/mypy.ini hatchpoc tests")
-    ctx.run("mypy --config-file ./setup.cfg hatchpoc tests")
+    # ctx.run("mypy --config-file ./lint-configs-python/python/mypy.ini src tests")
+    # ctx.run("mypy --config-file ./setup.cfg src tests")
+    ctx.run("mypy src tests")
 
 
 @task(incrementable=["verbose"])
@@ -203,7 +206,7 @@ def ruff(ctx, loc: str = "local", verbose: Union[bool, int] = 0):
         ctx.config["run"]["env"][k] = v
 
     ctx.run(
-        "ruff --show-source --diff --config pyproject.toml --format text -v --exclude setup.py .",
+        "ruff --show-source --diff --config pyproject.toml --format text -v .",
     )
 
 
@@ -238,7 +241,7 @@ def black(ctx, loc="local", check=False, debug=False, verbose=0, tests=False):
     if tests:
         _cmd += "tests tasks "
 
-    _cmd += "hatchpoc"
+    _cmd += "src"
 
     if verbose >= 1:
         msg = "[black] bout to run command: \n"
@@ -256,7 +259,7 @@ def black(ctx, loc="local", check=False, debug=False, verbose=0, tests=False):
 )
 def isort(ctx, loc="local", check=False, dry_run=False, verbose=0, diff=False):
     """
-    isort hatchpoc module. Some of the arguments were taken from the starlette contrib scripts. Tries to align w/ black to prevent having to reformat multiple times.
+    isort src module. Some of the arguments were taken from the starlette contrib scripts. Tries to align w/ black to prevent having to reformat multiple times.
 
     To check mode only(does not make changes permenantly):
         Usage: inv ci.isort --check -vvv
@@ -283,7 +286,7 @@ def isort(ctx, loc="local", check=False, dry_run=False, verbose=0, diff=False):
     if verbose >= 2:
         _cmd += " --verbose"
 
-    _cmd += " hatchpoc tests"
+    _cmd += " src tests"
 
     if verbose >= 1:
         msg = f"{_cmd}"
@@ -306,7 +309,7 @@ def isort(ctx, loc="local", check=False, dry_run=False, verbose=0, diff=False):
 )
 def bandit(ctx, loc="local", package=True, tests=True, verbose=0):
     """
-    bandit hatchpoc module. Some of the arguments were taken from the starlette contrib scripts. Tries to align w/ black to prevent having to reformat multiple times.
+    bandit src module. Some of the arguments were taken from the starlette contrib scripts. Tries to align w/ black to prevent having to reformat multiple times.
 
     To check mode only(does not make changes permenantly):
         Usage: inv ci.bandit --package -vvv
@@ -328,7 +331,7 @@ def bandit(ctx, loc="local", package=True, tests=True, verbose=0):
     _cmd = "bandit -r "
 
     if package:
-        _cmd += " hatchpoc"
+        _cmd += " src"
 
     if tests:
         _cmd += " tests"
@@ -373,7 +376,7 @@ def verify_python_version(ctx, loc="local", check=True, debug=False):
 @task
 def pre_start(ctx, loc="local", check=True, debug=False):
     """
-    pre_start hatchpoc module
+    pre_start src module
     """
     env = get_compose_env(ctx, loc=loc)
 
@@ -384,7 +387,7 @@ def pre_start(ctx, loc="local", check=True, debug=False):
     for k, v in env.items():
         ctx.config["run"]["env"][k] = v
 
-    # ctx.run("python hatchpoc/api/tests_pre_start.py")
+    # ctx.run("python src/api/tests_pre_start.py")
 
 
 @task(incrementable=["verbose"])
@@ -508,7 +511,7 @@ def pytest(
     if mypy:
         _cmd += r" --mypy "
 
-    _cmd += r" --cov-config=setup.cfg --verbose --cov-append --cov-report=term-missing --cov-report=xml:cov.xml --cov-report=html:htmlcov --cov-report=annotate:cov_annotate  --showlocals --tb=short --cov=hatchpoc tests"
+    _cmd += r" --verbose --cov-append --cov-report=term-missing --cov-report=xml:cov.xml --cov-report=html:htmlcov --cov-report=annotate:cov_annotate  --showlocals --tb=short --cov=src tests"
 
     resp = ctx.run(_cmd)
     if not resp.ok:
@@ -768,7 +771,7 @@ def autoflake(
         _cmd += " --in-place"
 
     _cmd += " --exclude=__init__.py"
-    _cmd += " hatchpoc"
+    _cmd += " src"
     _cmd += " tests"
     _cmd += " tasks"
 
@@ -901,12 +904,11 @@ pytest
         call(verify_python_version, loc="local"),
         call(mypy, loc="local"),
         call(autoflake, loc="local", in_place=True, remove_all_unused_imports=True),
-        call(sourcery, loc="local"),
+        # call(sourcery, loc="local"),
         call(black, loc="local", check=False, tests=True),
         call(isort, loc="local"),
         call(black, loc="local", check=False, tests=True),
         call(mypy, loc="local"),
-        # call(flake8, loc="local"),
         call(pylint, loc="local", everything=True),
         call(pytest, loc="local"),
     ],

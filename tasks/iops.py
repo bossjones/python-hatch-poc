@@ -4,7 +4,6 @@ import glob
 import pathlib
 import string
 import sys
-
 from typing import List, Tuple, Union
 
 import pandas as pd
@@ -32,55 +31,80 @@ def filter_pth(working_dir: List[str]) -> List[str]:
     return [
         f
         for f in working_dir
-        if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in TORCH_MODEL_EXTENSIONS
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in TORCH_MODEL_EXTENSIONS
     ]
 
 
 def filter_json(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in JSON_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in JSON_EXTENSIONS
     ]
 
 
 def filter_videos(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in VIDEO_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in VIDEO_EXTENSIONS
     ]
 
 
 def filter_audio(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in AUDIO_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in AUDIO_EXTENSIONS
     ]
 
 
 def filter_gif(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in GIF_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in GIF_EXTENSIONS
     ]
 
 
 def filter_mkv(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in MKV_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in MKV_EXTENSIONS
     ]
 
 
 def filter_m3u8(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in M3U8_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in M3U8_EXTENSIONS
     ]
 
 
 def filter_webm(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in WEBM_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in WEBM_EXTENSIONS
     ]
 
 
 def filter_images(working_dir: List[str]) -> List[str]:
     return [
-        f for f in working_dir if (pathlib.Path(f"{f}").is_file()) and pathlib.Path(f"{f}").suffix in IMAGE_EXTENSIONS
+        f
+        for f in working_dir
+        if (pathlib.Path(f"{f}").is_file())
+        and pathlib.Path(f"{f}").suffix in IMAGE_EXTENSIONS
     ]
 
 
@@ -90,7 +114,9 @@ def filter_media(working_dir: List[str]) -> List[str]:
     return imgs + videos
 
 
-def get_dataframe_from_csv(filename: str, return_parent_folder_name: bool = False) -> pd.core.frame.DataFrame:
+def get_dataframe_from_csv(
+    filename: str, return_parent_folder_name: bool = False
+) -> pd.core.frame.DataFrame:
     """Open csv files and return a dataframe from pandas
 
     Args:
@@ -105,7 +131,9 @@ def get_dataframe_from_csv(filename: str, return_parent_folder_name: bool = Fals
     return (df, f"{src.parent.stem}") if return_parent_folder_name else df
 
 
-def sort_dataframe(df: pd.core.frame.DataFrame, columns: list = None, ascending: Tuple = ()) -> pd.core.frame.DataFrame:
+def sort_dataframe(
+    df: pd.core.frame.DataFrame, columns: list = None, ascending: Tuple = ()
+) -> pd.core.frame.DataFrame:
     """Return dataframe sorted via columns
 
     Args:
@@ -122,7 +150,9 @@ def sort_dataframe(df: pd.core.frame.DataFrame, columns: list = None, ascending:
     return df
 
 
-def glob_file_by_extension(working_dir: List[str], extension: str = "*.mp4") -> List[str]:
+def glob_file_by_extension(
+    working_dir: List[str], extension: str = "*.mp4"
+) -> List[str]:
     print(f"Searching dir -> {working_dir}/{extension}")
     return glob.glob(f"{working_dir}/{extension}")
 
@@ -133,7 +163,9 @@ def print_and_append(dir_listing: list, tree_str: str, silent: bool = False) -> 
     dir_listing.append(tree_str)
 
 
-def tree(directory: Union[pathlib.PosixPath, pathlib.Path], silent: bool = False) -> List[pathlib.PosixPath]:
+def tree(
+    directory: Union[pathlib.PosixPath, pathlib.Path], silent: bool = False
+) -> List[pathlib.PosixPath]:
     """"""
     # from ffmpeg_tools import fileobject
 

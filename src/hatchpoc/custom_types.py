@@ -4,13 +4,14 @@
 from __future__ import annotations
 
 from types import TracebackType
-from typing import TypeAlias, Union
+from typing import Union
+
+from typing_extensions import TypeAlias
 
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]
 
-
-JsonType: TypeAlias = (
-    None | bool | int | float | str | list["JsonType"] | dict[str, "JsonType"]
-)
-JsonDict: TypeAlias = dict[str, "JsonType"]
+# JsonType: TypeAlias = (
+#     None | bool | int | float | str | list["JsonType"] | dict[str, "JsonType"]
+# )
+# JsonDict: TypeAlias = dict[str, "JsonType"]

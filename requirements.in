@@ -13,3 +13,4 @@ click-spinner
 prettytable
 tomli==1.2.2
 tomli-w
+pandas==2.0.1

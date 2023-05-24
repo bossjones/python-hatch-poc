@@ -6,9 +6,6 @@ supporting task functions
 # on Windows and Python2 raises a TypeError. Since there is no unicode
 # string in this script, we don't import unicode_literals to avoid the issue.
 from __future__ import absolute_import, division, print_function
-from contextlib import contextmanager
-from tempfile import mkdtemp
-from shutil import rmtree
 
 import contextlib
 import copy
@@ -16,10 +13,12 @@ import errno
 import logging
 import os
 import shutil
-from shutil import which
 import stat
 import subprocess
 import sys
+from contextlib import contextmanager
+from shutil import rmtree, which
+from tempfile import mkdtemp
 
 from invoke import Exit
 
@@ -63,7 +62,9 @@ def is_venv():
     Returns:
         [type] -- [description]
     """
-    return hasattr(sys, "real_prefix") or (hasattr(sys, "base_prefix") and sys.base_prefix != sys.prefix)
+    return hasattr(sys, "real_prefix") or (
+        hasattr(sys, "base_prefix") and sys.base_prefix != sys.prefix
+    )
 
 
 def get_version():
@@ -189,7 +190,9 @@ def pquery(command, stdin=None, **kwargs):
     # SOURCE: https://github.com/ARMmbed/mbed-cli/blob/f168237fabd0e32edcb48e214fc6ce2250046ab3/test/util.py
     # Example:
     print(" ".join(command))
-    proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+    proc = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs
+    )
     stdout, _ = proc.communicate(stdin)
 
     if proc.returncode != 0:
@@ -221,7 +224,9 @@ def scm(dir=None):
 
 def _popen(cmd_arg):
     with open("/dev/null") as devnull:
-        cmd = subprocess.Popen(cmd_arg, stdout=subprocess.PIPE, stderr=devnull, shell=True)
+        cmd = subprocess.Popen(
+            cmd_arg, stdout=subprocess.PIPE, stderr=devnull, shell=True
+        )
         retval = cmd.stdout.read().strip()
         err = cmd.wait()
         cmd.stdout.close()

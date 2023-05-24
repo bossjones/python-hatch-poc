@@ -252,7 +252,7 @@ min-public-methods=0
 max-args=12
 
 [EXCEPTIONS]
-overgeneral-exceptions=Exception,MoonbeamError
+overgeneral-exceptions=builtins.Exception
 
 [FORMAT]
 
