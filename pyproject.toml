@@ -95,7 +95,8 @@ tests = [
   "pytest-env",
   "pytest-clarity",
   "pytest-console-scripts",
-  "types-mock"
+  "types-mock",
+  "behave"
 ]
 types = [
   "mypy",
