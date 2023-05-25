@@ -14,3 +14,10 @@ prettytable
 tomli==1.2.2
 tomli-w
 pandas==2.0.1
+click
+click-spinner
+click-repl
+click-man
+click-params
+trogon
+tqdm

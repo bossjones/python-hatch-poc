@@ -90,7 +90,12 @@ tests = [
   "pytest-freezegun",
   "responses",
   "factory-boy",
-  "pytest-sugar"
+  "pytest-sugar",
+  "pytest-dotenv",
+  "pytest-env",
+  "pytest-clarity",
+  "pytest-console-scripts",
+  "types-mock"
 ]
 types = [
   "mypy",

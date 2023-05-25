@@ -166,3 +166,13 @@ Read the [hatch documentation](https://hatch.pypa.io/latest/) for more infos.
 
 hatcpoc is distributed under the terms of the
 [MIT](https://spdx.org/licenses/MIT.html) license.
+
+
+# Since this uses pip-tools, theres a bit of a chicken and egg situation here
+
+```bash
+# In activated venv, install dependencies
+pyenv virtualenv 3.9.10 python-hatch-poc3
+pyenv activate python-hatch-poc3
+just hatch-dev-upgrade
+```
