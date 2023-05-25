@@ -2,7 +2,9 @@
 program tasks
 """
 import logging
+
 from invoke import task
+
 from tasks.utils import get_compose_env
 
 logger = logging.getLogger(__name__)
@@ -20,7 +22,10 @@ def get_crud_interfaces(ctx, loc="local"):
     for k, v in env.items():
         ctx.config["run"]["env"][k] = v
 
-    _cmd = "grep \",\" hatchpoc/api/crud/__init__.py | grep -v \"^#\" | tr ',' '\n' | /usr/bin/xargs"
+    _cmd = (
+        "grep \",\" hatchpoc/api/crud/__init__.py | grep -v \"^#\" | tr ',' '\n' |"
+        " /usr/bin/xargs"
+    )
 
     res = ctx.run(_cmd)
 

@@ -2,8 +2,10 @@
 git tasks
 """
 import logging
-from invoke import task
+
 import click
+from invoke import task
+
 from tasks.utils import get_compose_env
 
 # from tasks.core import clean, execute_sql

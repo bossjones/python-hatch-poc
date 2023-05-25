@@ -322,5 +322,3 @@ xfail_strict = true
 # ]
 # create a global hatch config.toml
 # https://hatch.pypa.io/latest/config/hatch/
-
-

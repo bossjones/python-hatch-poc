@@ -2,9 +2,9 @@
 
 """Provide log symbols for various log levels."""
 import platform
-
 from enum import Enum
-from colorama import init, deinit, Fore
+
+from colorama import Fore, deinit, init
 
 init(autoreset=True)
 

@@ -2,7 +2,7 @@
 Text console UI helpers and patterns, e.g. 'Y/n' prompts and the like.
 """
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
 
 import sys
 

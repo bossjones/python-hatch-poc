@@ -59,7 +59,7 @@ class MockChecker(ast.NodeVisitor):
                 self.imported_mock and self._call_uses_mock_patch(node)
             ):
                 if not any(
-                    [keyword for keyword in node.keywords if keyword.arg == "autospec"]
+                    keyword for keyword in node.keywords if keyword.arg == "autospec"
                 ):
                     print(
                         "%s:%d: Found a mock without an autospec!"

@@ -7,9 +7,8 @@ from __future__ import unicode_literals
 from prompt_toolkit.filters import ViInsertMode
 from prompt_toolkit.key_binding.key_processor import KeyPress
 from prompt_toolkit.keys import Keys
-from pygments.token import Token
-
 from ptpython.layout import CompletionVisualisation
+from pygments.token import Token
 
 __all__ = ("configure",)
 
@@ -128,8 +127,8 @@ def configure(repl):
 
     @repl.add_key_binding(Keys.ControlB)
     def _(event):
-        ' Pressing Control-B will insert "pdb.set_trace()" '
-        event.cli.current_buffer.insert_text('\nimport pdb; pdb.set_trace()\n')
+        'Pressing Control-B will insert "pdb.set_trace()"'
+        event.cli.current_buffer.insert_text("\nimport pdb; pdb.set_trace()\n")
 
     # Typing ControlE twice should also execute the current command.
     # (Alternative for Meta-Enter.)
@@ -139,9 +138,9 @@ def configure(repl):
 
     # Typing 'jj' in Vi Insert mode, should send escape. (Go back to navigation
     # mode.)
-    @repl.add_key_binding('j', 'j', filter=ViInsertMode())
+    @repl.add_key_binding("j", "j", filter=ViInsertMode())
     def _(event):
-        " Map 'jj' to Escape. "
+        "Map 'jj' to Escape."
         event.cli.key_processor.feed(KeyPress(Keys.Escape))
 
     # Custom key binding for some simple autocorrection while typing.
@@ -164,6 +163,7 @@ def configure(repl):
 
         b.insert_text(' ')
     """
+
 
 # Custom colorscheme for the UI. See `ptpython/layout.py` and
 # `ptpython/style.py` for all possible tokens.

@@ -4,40 +4,40 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - main
+    - main
   push:
     branches:
-      - main
+    - main
     paths:
-      - .github/workflows/ci-cd.yaml
-      - src/**
-      - tests/**
+    - .github/workflows/ci-cd.yaml
+    - src/**
+    - tests/**
   release:
     types:
-      - published
+    - published
 
 jobs:
   check-quality:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+    - name: checkout
+      uses: actions/checkout@v3
 
-      - name: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
+    - name: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
 
-      - name: install-dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ".[quality]"
+    - name: install-dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ".[quality]"
 
-      - name: check-quality
-        run: |
-          black --check --diff --preview src tests
-          ruff src tests
+    - name: check-quality
+      run: |
+        black --check --diff --preview src tests
+        ruff src tests
 
   run-tests:
     needs: check-quality
@@ -45,21 +45,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+    - name: checkout
+      uses: actions/checkout@v3
 
-      - name: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
+    - name: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
 
-      - name: install-dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ".[tests]"
+    - name: install-dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ".[tests]"
 
-      - name: run-tests
-        run: pytest tests/ -s --durations 0
+    - name: run-tests
+      run: pytest tests/ -s --durations 0
 
   # deploy-docs:
   #   needs: run-tests

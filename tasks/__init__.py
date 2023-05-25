@@ -21,16 +21,12 @@ Show all tasks with::
 
 
 import logging
-from invoke import Collection, Context, Config
-from invoke import task
-from .constants import ROOT_DIR, PROJECT_BIN_DIR, DATA_DIR, SCRIPT_DIR
+
+from invoke import Collection
 
 # from . import core
-from . import local
-
 # from . import travis
-from . import ci
-from . import view
+from . import ci, local, view
 
 # from . import program
 # from . import db

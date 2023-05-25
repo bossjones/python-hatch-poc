@@ -32,4 +32,3 @@ _hatch_completion() {
 }
 
 compdef _hatch_completion hatch;
-
