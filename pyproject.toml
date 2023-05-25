@@ -42,6 +42,9 @@ Documentation = "https://bossjones.github.io/hatchpoc"
 Issues = "https://github.com/bossjones/hatchpoc/issues"
 Source = "https://github.com/bossjones/hatchpoc"
 
+# [project.scripts]
+# gradio = "gradio.reload:run_in_reload_mode"
+
 # SOURCE: https://github.com/fredrikaverpil/hatch-playground/blob/main/pyproject.toml
 [tool.hatch.version]
 path = "src/hatchpoc/__init__.py"
@@ -270,3 +273,54 @@ warn_unused_ignores = false
     [[tool.mypy.overrides]]
     ignore_missing_imports = true
     module = ['redis.asyncio']
+
+[tool.pytest.ini_options]
+testpaths = 'tests'
+xfail_strict = true
+# filterwarnings = [
+#     'error',
+#     "ignore::UserWarning",
+# ]
+#     'ignore:path is deprecated.*:DeprecationWarning:',
+#     # Work around https://github.com/pytest-dev/pytest/issues/10977 for Python 3.12
+#     'ignore:(ast\.Str|ast\.NameConstant|ast\.Num|Attribute s) is deprecated and will be removed.*:DeprecationWarning:',
+#     'DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.'
+# ]
+
+# # SOURCE: https://github.com/psf/black/blob/f22273a72b3f1c15085f2d4a43e8d785bf48c822/pyproject.toml#L28-L30
+# [tool.pytest.ini_options]
+# # Option below requires `tests/optional.py`
+# addopts = "--strict-config --strict-markers"
+# optional-tests = [
+#   "no_blackd: run when `d` extra NOT installed",
+#   "no_jupyter: run when `jupyter` extra NOT installed",
+# ]
+# markers = [
+#   "incompatible_with_mypyc: run when testing mypyc compiled black"
+# ]
+# xfail_strict = true
+# filterwarnings = [
+#     "error",
+#     # this is mitigated by a try/catch in https://github.com/psf/black/pull/2974/
+#     # this ignore can be removed when support for aiohttp 3.7 is dropped.
+#     '''ignore:Decorator `@unittest_run_loop` is no longer needed in aiohttp 3\.8\+:DeprecationWarning''',
+#     # this is mitigated by a try/catch in https://github.com/psf/black/pull/3198/
+#     # this ignore can be removed when support for aiohttp 3.x is dropped.
+#     '''ignore:Middleware decorator is deprecated since 4\.0 and its behaviour is default, you can simply remove this decorator:DeprecationWarning''',
+#     # this is mitigated by https://github.com/python/cpython/issues/79071 in python 3.8+
+#     # this ignore can be removed when support for 3.7 is dropped.
+#     '''ignore:Bare functions are deprecated, use async ones:DeprecationWarning''',
+#     # aiohttp is using deprecated cgi modules - Safe to remove when fixed:
+#     # https://github.com/aio-libs/aiohttp/issues/6905
+#     '''ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning''',
+# ]
+
+# # pre-install commands
+# [tool.hatch.envs.<ENV_NAME>]
+# pre-install-commands = [
+#   "...",
+# ]
+# create a global hatch config.toml
+# https://hatch.pypa.io/latest/config/hatch/
+
+

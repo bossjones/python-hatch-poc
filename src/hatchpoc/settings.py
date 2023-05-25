@@ -2,15 +2,8 @@
 from __future__ import annotations
 
 import enum
-import pathlib
-from pathlib import Path
-from tempfile import gettempdir
-from typing import Any, Dict, Optional
 
-from pydantic import BaseSettings, validator
-from rich.console import Console
-from rich.table import Table
-from yarl import URL
+from pydantic import BaseSettings
 
 
 class LogLevel(str, enum.Enum):  # noqa: WPS600
