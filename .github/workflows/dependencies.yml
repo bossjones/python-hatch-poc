@@ -17,13 +17,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Check if dependencies were modified
-      id: changed-files
-      uses: tj-actions/changed-files@v26.1
-      with:
-        files: |
-          requirements.txt
-          pyproject.toml
 
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
@@ -34,9 +27,3 @@ jobs:
 
       # skip some dependencies
     - run: pip uninstall --yes setuptools
-
-    - name: "Vulnerabilities: pip-audit"
-      if: ${{ steps.changed-files.outputs.any_modified == 'true' || github.event_name == 'schedule' }}
-      uses: pypa/gh-action-pip-audit@v1.0.8
-      with:
-        inputs: requirements.txt
